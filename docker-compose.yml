@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - type: bind
+        source: /data/db
+        target: /data/db
+    ports:
+      - "27017:27017"
+
+  client:
+    build:
+        context: ./client/
+        dockerfile: Dockerfile
+    ports:
+        - "3001:3001"
+
+  db-client:
+    build:
+      context: ./db_client/
+      dockerfile: Dockerfile
+    ports:
+        - "8000:8000"
+  
+  db-server:
+    build:
+        context: ./db_server/
+        dockerfile: Dockerfile
+    ports:
+        - "3000:3000"
+  
+  fileserver:
+    build:
+      context: ./videoplayer/
+      dockerfile: Dockerfile
+    volumes:
+      - ./videoplayer/:/movie-app/:ro
+    ports:
+      - "1337:1337"
+
