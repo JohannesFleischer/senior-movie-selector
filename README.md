@@ -26,4 +26,4 @@
 
 > Do not enter the whole path for the files. The filename is all you need.
 
-1. profit
+3. profit
