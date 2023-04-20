@@ -16,21 +16,36 @@
 </head>
 
 <body>
-    <video autoplay id="video-player" class="video-js" controls preload="auto" data-setup='{}'>
+    <video autoplay id="video-player" class="video-js" controls preload="auto" data-setup='{}' userAction='{}'>
         <p class="vjs-no-js">
             To view this video please enable JavaScript, and consider upgrading to a
             web browser that
         </p>
     </video>
     <script type='text/javascript'>
-        var vjs_fill = document.getElementById("vjs-fill");
         var player = document.getElementById("video-player");
-        document.getElementById('video-player').addEventListener('ended', myHandler, false);
-        window.addEventListener("resize", resizeFullscreen);
+        
+        document.getElementById('video-player').addEventListener('ended', openClient, false);
 
-        function myHandler(e) {
+        function openClient(e) {
             window.location.replace("http://localhost:3001");
         }
+
+        document.onkeydown = function (event) {
+            if (event.key === "ArrowRight") {
+                player.currentTime += 15;
+            } else if (event.key === "ArrowLeft") {
+                player.currentTime -= 15;
+
+            } else if (event.key === "Enter") {
+                if (player.paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+        }
+        
 
         window.onload = function () {
             const filepath = "films/" + new URLSearchParams(window.location.search).get("film").toString();
