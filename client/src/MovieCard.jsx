@@ -5,12 +5,12 @@ const base_url =  "http://localhost:1337"
 const videoplayer_url = base_url + "/main.html?film=";
 const noimage_url = base_url + "/poster/noimage.png" 
 
-const MovieCard = ({ movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
+const MovieCard = ({ id, movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
   return (
-    <div key={ID} style={{cursor: "pointer" }} className="movie" onClick={ () => redirect(videoplayer_url + Videofile) }>
+    <div id={id} key={ID} style={{cursor: "pointer" }} className="movie" onClick={ () => redirect(videoplayer_url + Videofile) }>
       <div>
         <p>{Year}</p>
-        <text > {Description} </text>
+        <text> {Description} </text>
       </div>
 
       <div>

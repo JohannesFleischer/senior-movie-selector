@@ -8,10 +8,22 @@ const movie_count = 5;
 
 const App = () => {
   const [movies, setMovies] = useState([]);
+  const [counter, setCounter] = useState(0);
 
 useEffect(() => {
   selectMovies();
   }, []);
+
+  const inc_counter = () => {
+    setCounter(couter => counter +1);
+    if (counter >= movie_count-1)setCounter(0);
+  };
+
+  const dec_counter = () => {
+    setCounter(count => count - 1);
+    if (counter < 1) setCounter(movie_count-1);
+  };
+
 
 const selectMovies = async () => {
     const response = await fetch(`${API_URL}`);
@@ -32,13 +44,13 @@ const selectMovies = async () => {
   };
 
   document.onkeydown = function (event) {
+    // TODO highlight current element
     if (event.key === "ArrowRight") {
-        // TODO select right
+        inc_counter();
     } else if (event.key === "ArrowLeft") {
-        // TODO select left
+        dec_counter();
     } else if (event.key === "Enter") {
-        // TODO get selected element id
-        var selectedElementID = "TODO";
+        var selectedElementID = counter;
         document.getElementById(selectedElementID).click();
     }else if (event.key === "Backspace" || event.key === "Escape") {
         window.location.reload(); 
@@ -58,7 +70,7 @@ const selectMovies = async () => {
       <h1 style={{cursor: "pointer" }} onClick={() => window.location.reload() }>Filmauswahl</h1>
 
       {movies?.length > 0 ? (
-        <div className="container">
+        <div id="movie-container" className="container">
           {movies.map((movie, index) => (
             <MovieCard id={index} movie={movie}/>
           ))}
@@ -68,6 +80,7 @@ const selectMovies = async () => {
           <h2>No movies found</h2>
         </div>
       )}
+      <h2>{counter}</h2>
     </div>
   );
 };
