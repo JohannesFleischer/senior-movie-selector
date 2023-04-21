@@ -120,14 +120,14 @@ class MoviesUpdate extends Component {
             <Wrapper>
                 <Title>Update Movie</Title>
 
-                <Label>Filmtitel: </Label>
+                <Label>Title: </Label>
                 <InputText
                     type="text"
                     value={Name}
                     onChange={this.handleChangeInputName}
                 />
 
-                <Label>Erscheinungsjahr: </Label>
+                <Label>Year: </Label>
                 <InputText
                     type="number"
                     step="1"
@@ -135,28 +135,28 @@ class MoviesUpdate extends Component {
                     onChange={this.handleChangeInputYear}
                 />
 
-                <Label>Poster (Dateiname): </Label>
+                <Label>Poster (filename): </Label>
                 <InputText
                     type="text"
                     value={Poster}
                     onChange={this.handleChangeInputPoster}
                 />
 
-                <Label>Video (Dateiname): </Label>
+                <Label>Video (filename): </Label>
                 <InputText
                     type="text"
                     value={Videofile}
                     onChange={this.handleChangeInputVideofile}
                 />
                 
-                <Label>Laufzeit (min): </Label>
+                <Label>Duration (min): </Label>
                 <InputText
                     type="number"
                     value={Duration}
                     onChange={this.handleChangeInputDuration}
                 />
 
-                <Label>Beschreibung: </Label>
+                <Label>Description: </Label>
                 <InputText
                     type="text"
                     value={Description}
