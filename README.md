@@ -27,3 +27,7 @@
 > Do not enter the whole path for the files. The filename is all you need.
 
 3. profit
+
+
+## Dependencies
+see [here](DEPENDENCIES.md)
