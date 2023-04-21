@@ -16,20 +16,16 @@
 </head>
 
 <body>
-    <video autoplay id="video-player" class="video-js" controls preload="auto" data-setup='{}' userAction='{}'>
+    <video autoplay id="video-player" class="video-js" controls preload="auto" data-setup="{}" userActions="{}">
         <p class="vjs-no-js">
             To view this video please enable JavaScript, and consider upgrading to a
             web browser that
         </p>
     </video>
-    <script type='text/javascript'>
+    <script type='text/javascript'>     
         var player = document.getElementById("video-player");
-        
-        document.getElementById('video-player').addEventListener('ended', openClient, false);
-
-        function openClient(e) {
-            window.location.replace("http://localhost:3001");
-        }
+        player.onended = openClient;
+        player.onerror = openClient;
 
         document.onkeydown = function (event) {
             if (event.key === "ArrowRight") {
@@ -43,6 +39,8 @@
                 } else {
                     player.pause();
                 }
+            }else if (event.key === "Backspace") {
+                openClient(); 
             }
         }
         
@@ -54,10 +52,15 @@
             resizeFullscreen(player);
         }
 
+        function openClient() {
+            window.location.replace("http://localhost:3001");
+        }
+
         function resizeFullscreen(element) {
             element.width = window.innerWidth;
             element.height = window.innerHeight;
         }
+        
     </script>
 
 

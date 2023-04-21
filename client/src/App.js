@@ -31,6 +31,20 @@ const selectMovies = async () => {
     
   };
 
+  document.onkeydown = function (event) {
+    if (event.key === "ArrowRight") {
+        // TODO select right
+    } else if (event.key === "ArrowLeft") {
+        // TODO select left
+    } else if (event.key === "Enter") {
+        // TODO get selected element id
+        var selectedElementID = "TODO";
+        document.getElementById(selectedElementID).click();
+    }else if (event.key === "Backspace" || event.key === "Escape") {
+        window.location.reload(); 
+  }
+}
+
   function genRandomInts(quantity, max){
     const set = new Set()
     while(set.size < quantity) {
@@ -45,8 +59,8 @@ const selectMovies = async () => {
 
       {movies?.length > 0 ? (
         <div className="container">
-          {movies.map((movie) => (
-            <MovieCard movie={movie}/>
+          {movies.map((movie, index) => (
+            <MovieCard id={index} movie={movie}/>
           ))}
         </div>
       ) : (

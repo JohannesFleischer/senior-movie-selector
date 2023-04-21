@@ -1,23 +1,24 @@
 import { file } from '@babel/types';
 import React from 'react';
 
-const videoplayer_url = "http://localhost:1337/main.html?film=";
-const noimage_url = "http://localhost:1337/poster/noimage.png" 
+const base_url =  "http://localhost:1337"
+const videoplayer_url = base_url + "/main.html?film=";
+const noimage_url = base_url + "/poster/noimage.png" 
 
-const MovieCard = ({ movie: { ID, Name, Year, Poster, Videofile, Duration, Description } }) => {
+const MovieCard = ({ movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
   return (
-    <div style={{cursor: "pointer" }} className="movie" key={ID} onClick={ () => redirect(videoplayer_url + Videofile) }>
+    <div key={ID} style={{cursor: "pointer" }} className="movie" onClick={ () => redirect(videoplayer_url + Videofile) }>
       <div>
         <p>{Year}</p>
         <text > {Description} </text>
       </div>
 
       <div>
-        <img src={Poster !== "N/A" ? 'http://localhost:1337/poster/' + Poster : noimage_url } alt={Name} />
+        <img src={getPoster(Poster)} alt={Name} />
       </div>
 
       <div>
-        <span>{Duration} Minuten</span>
+        <span>{Duration} Min</span>
         <h3>{Name}</h3>
       </div>
     </div>
@@ -26,6 +27,24 @@ const MovieCard = ({ movie: { ID, Name, Year, Poster, Videofile, Duration, Descr
 
 function redirect(url){
   window.location.replace(url);
+}
+
+function imageExists(image_url){
+  var http = new XMLHttpRequest();
+  http.open('HEAD', image_url, false);
+  http.send();
+  return http.status != 404;
+}
+
+function getPoster(filename){
+  const url = base_url + "/poster/" + filename
+
+  if (imageExists(url)){
+    return url;
+  } else{
+    return noimage_url;
+  }
+
 }
 
 export default MovieCard;
