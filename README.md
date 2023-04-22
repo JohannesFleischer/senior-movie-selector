@@ -53,7 +53,7 @@ In general this address has not to be opened manually. If you want to do so see 
 The Videoplayer tries to open the videofile with the name from the db.
 If the file is not found it redirects to the `client`.
 If the Videofile is found the videoplayer tries to start it automatically in \"fullscreen\" (technically just laaarge)
-> **Note:** to start the video automatically this has to be allowed in the browser at least once
+> **Note:** to start the video automatically in Firefox this has to be allowed manually
 
 Supported files are [depending on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
 
