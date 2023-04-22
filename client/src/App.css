@@ -143,6 +143,11 @@ h1 {
   transform: scale(1.05, 1.05);
 }
 
+.selected {
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05, 1.05);
+}
+
 .movie div:nth-of-type(2) {
   width: 100%;
   height: 100%;
@@ -165,11 +170,11 @@ h1 {
 }
 
 .movie div:nth-of-type(3) span {
-  font-family: "Raleway", sans-serif;
+  font-family: sans-serif;
+  font-size: 14px;
   text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 2px;
-  font-weight: 500;
+  letter-spacing: 0.25px;
+  font-weight: 600;
   color: #f0f0f0;
 }
 
@@ -184,11 +189,24 @@ h1 {
   opacity: 0.3;
 }
 
+.selected div:nth-of-type(2) {
+  height: 100%;
+  opacity: 0.3;
+}
+
 .movie:hover div:nth-of-type(3) {
   background-color: transparent;
 }
 
+.selected div:nth-of-type(3) {
+  background-color: transparent;
+}
+
 .movie:hover div:nth-of-type(1) {
+  opacity: 1;
+}
+
+.selected div:nth-of-type(1) {
   opacity: 1;
 }
 

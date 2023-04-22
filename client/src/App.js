@@ -5,27 +5,28 @@ import "./App.css";
 
 const API_URL = "http://localhost:3000/api/movies"
 const movie_count = 5;
+const css_class = "selected"
+
+var counter = 0;
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [counter, setCounter] = useState(0);
 
-useEffect(() => {
-  selectMovies();
-  }, []);
-
+  useEffect(() => {
+    selectMovies();
+    }, []);
+  
   const inc_counter = () => {
-    setCounter(couter => counter +1);
-    if (counter >= movie_count-1)setCounter(0);
+    if (counter >= movie_count-1) counter = 0;
+    else counter++;
   };
 
   const dec_counter = () => {
-    setCounter(count => count - 1);
-    if (counter < 1) setCounter(movie_count-1);
+    if (counter < 1) counter = movie_count-1;
+    else counter--;
   };
 
-
-const selectMovies = async () => {
+  const selectMovies = async () => {
     const response = await fetch(`${API_URL}`);
     const data = await response.json();
     var all_movies = data.data;
@@ -40,22 +41,7 @@ const selectMovies = async () => {
       }
       setMovies(movie_selection);
     }
-    
-  };
-
-  document.onkeydown = function (event) {
-    // TODO highlight current element
-    if (event.key === "ArrowRight") {
-        inc_counter();
-    } else if (event.key === "ArrowLeft") {
-        dec_counter();
-    } else if (event.key === "Enter") {
-        var selectedElementID = counter;
-        document.getElementById(selectedElementID).click();
-    }else if (event.key === "Backspace" || event.key === "Escape") {
-        window.location.reload(); 
   }
-}
 
   function genRandomInts(quantity, max){
     const set = new Set()
@@ -65,6 +51,32 @@ const selectMovies = async () => {
     return Array.from(set);
   }
 
+  document.onkeydown = function (event) {
+    rmvCssClass(counter, css_class);
+    if (event.key === "ArrowRight") {
+        inc_counter();
+    } else if (event.key === "ArrowLeft") {
+        dec_counter();
+    } else if (event.key === "Enter") {
+        document.getElementById(counter).click();
+    }else if (event.key === "Backspace" || event.key === "Escape") {
+        window.location.reload(); 
+  }
+    for(var i = 0; i < movie_count; i++){
+      
+    }
+    addCssClass(counter, css_class);
+}
+
+  function addCssClass(id, className) {
+    console.log(id);
+    document.getElementById(id).classList.add(className);
+  }
+
+  function rmvCssClass(id, className) {
+    document.getElementById(id).classList.remove(className);
+  }
+
   return (
     <div className="app">
       <h1 style={{cursor: "pointer" }} onClick={() => window.location.reload() }>Filmauswahl</h1>
@@ -72,15 +84,15 @@ const selectMovies = async () => {
       {movies?.length > 0 ? (
         <div id="movie-container" className="container">
           {movies.map((movie, index) => (
-            <MovieCard id={index} movie={movie}/>
+            <MovieCard id={index} key={index} movie={movie}/>
           ))}
+        <script>window.onload = document.getElementById("0").classList.add("{css_class}"));</script>
         </div>
       ) : (
         <div className="empty">
           <h2>No movies found</h2>
         </div>
       )}
-      <h2>{counter}</h2>
     </div>
   );
 };
