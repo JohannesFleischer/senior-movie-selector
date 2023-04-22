@@ -61,6 +61,10 @@ const App = () => {
         getElem(counter).click();
     }else if (event.key === "Backspace" || event.key === "Escape") {
         window.location.reload(); 
+    }else if (event.key === "ArrowUp") {
+      getElem("banner").click();
+    }else if (event.key === "ContextMenu") {
+
     }
     addCssClass(counter, css_class);
 }
@@ -79,7 +83,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1 style={{cursor: "pointer" }} onClick={() => window.location.reload() }>Filmauswahl</h1>
+      <h1 id={"banner"} style={{cursor: "pointer" }} onClick={() => window.location.reload() }>Filmauswahl</h1>
 
       {movies?.length > 0 ? (
         <div id="movie-container" className="container">
