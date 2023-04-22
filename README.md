@@ -1,5 +1,7 @@
 # Senior Movie Selector
 
+> **Note:** Chrome support is currently wip. It runs best on Firefox.
+
 ## Start
 
 `docker compose up -d`
