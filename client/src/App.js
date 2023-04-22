@@ -58,23 +58,23 @@ const App = () => {
     } else if (event.key === "ArrowLeft") {
         dec_counter();
     } else if (event.key === "Enter") {
-        document.getElementById(counter).click();
+        getElem(counter).click();
     }else if (event.key === "Backspace" || event.key === "Escape") {
         window.location.reload(); 
-  }
-    for(var i = 0; i < movie_count; i++){
-      
     }
     addCssClass(counter, css_class);
 }
 
   function addCssClass(id, className) {
-    console.log(id);
-    document.getElementById(id).classList.add(className);
+    getElem(id).classList.add(className);
   }
 
   function rmvCssClass(id, className) {
-    document.getElementById(id).classList.remove(className);
+    getElem(id).classList.remove(className);
+  }
+
+  function getElem(id){
+    return document.getElementById(id);
   }
 
   return (
@@ -86,7 +86,6 @@ const App = () => {
           {movies.map((movie, index) => (
             <MovieCard id={index} key={index} movie={movie}/>
           ))}
-        <script>window.onload = document.getElementById("0").classList.add("{css_class}"));</script>
         </div>
       ) : (
         <div className="empty">

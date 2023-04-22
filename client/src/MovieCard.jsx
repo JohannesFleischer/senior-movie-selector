@@ -7,7 +7,7 @@ const noimage_url = base_url + "/poster/noimage.png"
 
 const MovieCard = ({ id, movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
   return (
-    <div id={id} key={ID} style={{cursor: "pointer" }} className="movie" onClick={ () => redirect(videoplayer_url + Videofile) }>
+    <div id={id} key={ID} style={{cursor: "pointer" }} className={id !== 0? "movie": "movie selected"} onClick={ () => redirect(videoplayer_url + Videofile) }>
       <div>
         <p>{Year}</p>
         <h4> {Description} </h4>
