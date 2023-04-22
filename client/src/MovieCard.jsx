@@ -10,7 +10,7 @@ const MovieCard = ({ id, movie: { ID, Name, Year, Poster, Videofile, Duration, D
     <div id={id} key={ID} style={{cursor: "pointer" }} className="movie" onClick={ () => redirect(videoplayer_url + Videofile) }>
       <div>
         <p>{Year}</p>
-        <text> {Description} </text>
+        <h4> {Description} </h4>
       </div>
 
       <div>
@@ -29,11 +29,11 @@ function redirect(url){
   window.location.replace(url);
 }
 
-function imageExists(image_url){
-  var http = new XMLHttpRequest();
-  http.open('HEAD', image_url, false);
-  http.send();
-  return http.status != 404;
+function imageExists(url) 
+{
+   var img = new Image();
+   img.src = url;
+   return img.height != 0;
 }
 
 function getPoster(filename){
