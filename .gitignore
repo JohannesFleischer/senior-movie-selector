@@ -1,5 +1,7 @@
+# Custom
 videoplayer/films/*
 videoplayer/poster/*
+mongo/db
 
 # Logs
 logs
