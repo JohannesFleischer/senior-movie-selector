@@ -31,6 +31,11 @@ const App = () => {
     const data = await response.json();
     var all_movies = data.data;
 
+    if (typeof all_movies === "undefined") {
+      setMovies([]);
+      return;
+    }
+
     if(all_movies.length <= movie_count){
       setMovies(all_movies);
     }
@@ -52,19 +57,30 @@ const App = () => {
   }
 
   document.onkeydown = function (event) {
-    rmvCssClass(counter, css_class);
-    if (event.key === "ArrowRight") {
-        inc_counter();
-    } else if (event.key === "ArrowLeft") {
-        dec_counter();
-    } else if (event.key === "Enter") {
-        getElem(counter).click();
-    }else if (event.key === "ArrowUp" || event.key === "Backspace" || event.key === "Escape") {
-        window.location.reload();
-    }else if (event.key === "ContextMenu") {
-
+    try{
+      if (event.key === "ArrowRight") {
+          rmvCssClass(counter, css_class);
+          inc_counter();
+          addCssClass(counter, css_class);
+      } 
+      else if (event.key === "ArrowLeft") {
+          rmvCssClass(counter, css_class);  
+          dec_counter();
+          addCssClass(counter, css_class);
+      } 
+      else if (event.key === "Enter") {
+          getElem(counter).click();
+      } 
+      else if (event.key === "ArrowUp" || event.key === "Backspace" || event.key === "Escape") {
+          window.location.reload();
+      } 
+      else if (event.key === "ContextMenu") {
+          // TODO
+      }
+    }catch{
+      console.log("Error on \"" + event.key + "\" event:\nIf the Film-List is empty the element with id=" + counter + " was probably not found.");
     }
-    addCssClass(counter, css_class);
+    
 }
 
   function addCssClass(id, className) {
