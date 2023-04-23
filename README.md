@@ -4,6 +4,7 @@
 
 ## Start
 
+`mkdir /data/db`
 `docker compose up -d`
 
 ## Services
