@@ -46,7 +46,7 @@ class MoviesUpdate extends Component {
             Poster: '',
             Videofile: '',
             Duration: '',
-            Description: '',
+            Description: ''
         }
     }
 
@@ -87,17 +87,21 @@ class MoviesUpdate extends Component {
         const { id, Name, Year, Poster, Videofile, Duration, Description } = this.state
         const payload = { Name, Year, Poster, Videofile, Duration, Description }
 
-        await api.updateMovieById(id, payload).then(res => {
-            window.alert(`Movie updated successfully`)
-            this.setState({
-                Name: '',
-                Year: '',
-                Poster: '',
-                Videofile: '',
-                Duration: '',
-                Description: '',
+        try{
+            await api.updateMovieById(id, payload).then(res => {
+                window.alert(`Movie updated successfully`)
+                this.setState({
+                    Name: '',
+                    Year: '',
+                    Poster: '',
+                    Videofile: '',
+                    Duration: '',
+                    Description: ''
+                })
             })
-        })
+        }catch{
+            window.alert(`Update-Error: Check if the Input is complete and make sure that all Types are correct`)
+        }
     }
 
     componentDidMount = async () => {

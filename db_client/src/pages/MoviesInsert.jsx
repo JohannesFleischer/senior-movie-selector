@@ -45,7 +45,7 @@ class MoviesInsert extends Component {
             Poster: '',
             Videofile: '',
             Duration: '',
-            Description: '',
+            Description: ''
         }
     }
 
@@ -85,18 +85,22 @@ class MoviesInsert extends Component {
     handleIncludeMovie = async () => {
         const { Name, Year, Poster, Videofile, Duration, Description} = this.state
         const payload = { Name, Year, Poster, Videofile, Duration, Description }
-
-        await api.insertMovie(payload).then(res => {
-            window.alert(`Movie inserted successfully`)
-            this.setState({
-                Name: '',
-                Year: '',
-                Poster: '',
-                Videofile: '',
-                Duration: '',
-                Description: '',
+        
+        try{
+            await api.insertMovie(payload).then(res => {
+                window.alert(`Movie inserted successfully`)
+                this.setState({
+                    Name: '',
+                    Year: '',
+                    Poster: '',
+                    Videofile: '',
+                    Duration: '',
+                    Description: ''
+                })
             })
-        })
+        }catch{
+            window.alert(`Insertion-Error: Check if the Input is complete and make sure that all Types are correct`)
+        }
     }
 
     render() {

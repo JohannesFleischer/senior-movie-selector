@@ -33,7 +33,7 @@ class UpdateMovie extends Component {
 }
 
 class DeleteMovie extends Component {
-    deleteUser = event => {
+    deleteUser = async event => {
         event.preventDefault()
 
         if (
@@ -41,7 +41,7 @@ class DeleteMovie extends Component {
                 `Do tou want to delete the movie ${this.props.id} permanently?`,
             )
         ) {
-            api.deleteMovieById(this.props.id)
+            await api.deleteMovieById(this.props.id)
             window.location.reload()
         }
     }
@@ -62,14 +62,21 @@ class MoviesList extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({ isLoading: true })
+        try{
+            this.setState({ isLoading: true })
 
-        await api.getAllMovies().then(movies => {
+            await api.getAllMovies().then(movies => {
+                this.setState({
+                    movies: movies.data.data,
+                    isLoading: false,
+                })
+            })
+        }catch {
             this.setState({
-                movies: movies.data.data,
                 isLoading: false,
             })
-        })
+            window.alert(`Error while loading List: List is probably empty.`)
+        }
     }
 
     render() {
