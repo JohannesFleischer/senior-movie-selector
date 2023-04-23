@@ -59,10 +59,8 @@ const App = () => {
         dec_counter();
     } else if (event.key === "Enter") {
         getElem(counter).click();
-    }else if (event.key === "Backspace" || event.key === "Escape") {
-        window.location.reload(); 
-    }else if (event.key === "ArrowUp") {
-      getElem("banner").click();
+    }else if (event.key === "ArrowUp" || event.key === "Backspace" || event.key === "Escape") {
+        window.location.reload();
     }else if (event.key === "ContextMenu") {
 
     }
@@ -88,7 +86,7 @@ const App = () => {
       {movies?.length > 0 ? (
         <div id="movie-container" className="container">
           {movies.map((movie, index) => (
-            <MovieCard id={index} key={index} movie={movie}/>
+            <MovieCard id={index} selected={counter} key={index} movie={movie}/>
           ))}
         </div>
       ) : (
