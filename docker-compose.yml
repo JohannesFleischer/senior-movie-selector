@@ -4,9 +4,11 @@ services:
   mongo:
     image: mongo
     restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: films
     volumes:
       - type: bind
-        source: /data/db
+        source: ./mongo/db
         target: /data/db
     ports:
       - "27017:27017"
