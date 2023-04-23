@@ -42,8 +42,8 @@ Supported actions are:
 
 - `Hover` over a movie -> shows description
 - `Click` on a movie -> starts the videoplayer with the filename from the db
-- `Escape`/`Backspace` -> reload
-- `ArrowRight`/`ArrowLeft` -> select movies
+- `Escape`/`Backspace`/`ArrowLeft` -> reload
+- `ArrowRight`/`ArrowUp` -> select movies
 - `Enter` -> start selected movie
 
 > **Note:** If a poster is not available the `noimage.png` is shown
@@ -61,8 +61,7 @@ Supported files are [depending on your browser](https://videojs.com/guides/faqs/
 
 Supported actions are:
 
-- `Click` -> start/stop
-- `Enter` -> start/stop
+- `Click`/`Enter` -> start/stop
 - `Backspace` -> return to `client`
 - `ArrowRight`/`ArrowLeft` -> +/-15 seconds (can be hold for longer periods)
 
