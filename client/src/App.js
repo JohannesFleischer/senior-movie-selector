@@ -78,7 +78,7 @@ const App = () => {
           // TODO
       }
     }catch{
-      console.log("Error on \"" + event.key + "\" event:\nIf the Film-List is empty the element with id=" + counter + " was probably not found.");
+      console.error("Error on \"" + event.key + "\" event:\nIf the Film-List is empty the element with id=" + counter + " was probably not found.");
     }
     
 }
