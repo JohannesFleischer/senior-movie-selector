@@ -29,21 +29,9 @@ function redirect(url){
   window.location.href = url;
 }
 
-function imageExists(url) 
-{
-   var img = new Image();
-   img.src = url;
-   return img.height != 0;
-}
-
 function getPoster(filename){
   const url = base_url + "/poster/" + filename
-
-  if (imageExists(url)){
-    return url;
-  } else{
-    return noimage_url;
-  }
+  return url;
 }
 
 export default MovieCard;
