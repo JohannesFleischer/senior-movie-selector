@@ -36,13 +36,18 @@ class DeleteMovie extends Component {
     deleteUser = async event => {
         event.preventDefault()
 
-        if (
-            window.confirm(
-                `Do tou want to delete the movie ${this.props.id} permanently?`,
-            )
-        ) {
-            await api.deleteMovieById(this.props.id)
-            window.location.reload()
+        try{
+            if (
+                window.confirm(
+                    `Do tou want to delete the movie ${this.props.id} permanently?`,
+                )
+            ) {
+                await api.deleteMovieById(this.props.id)
+                window.location.reload()
+            }
+        }catch(e){
+            window.alert("Deletion-Error: Check console for further information.")
+            console.error(e);
         }
     }
 
@@ -71,11 +76,12 @@ class MoviesList extends Component {
                     isLoading: false,
                 })
             })
-        }catch {
+        }catch(e) {
             this.setState({
                 isLoading: false,
             })
-            window.alert(`Error while loading List: List is probably empty.`)
+            window.alert(`Error while loading List: List is probably empty.`);
+            console.error(e);
         }
     }
 

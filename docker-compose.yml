@@ -5,7 +5,7 @@ services:
     image: mongo
     restart: unless-stopped
     environment:
-      MONGO_INITDB_DATABASE: films
+      MONGO_INITDB_DATABASE: "films"
     volumes:
       - type: bind
         source: ./mongo/db

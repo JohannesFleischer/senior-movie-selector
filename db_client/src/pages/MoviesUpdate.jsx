@@ -99,8 +99,9 @@ class MoviesUpdate extends Component {
                     Description: ''
                 })
             })
-        }catch{
-            window.alert(`Update-Error: Check if the Input is complete and make sure that all Types are correct`)
+        }catch(e){
+            window.alert(`Update-Error: Check if the Input is complete and make sure that all Types are correct`);
+            console.error(e);
         }
     }
 
