@@ -4,9 +4,9 @@ import MovieCard from "./MovieCard";
 import "./App.css";
 
 const API_URL = "http://localhost:3000/api/movies"
-const movie_count = 5;
 const css_class = "selected"
 
+var movie_count = 5;
 var counter = 0;
 
 const App = () => {
@@ -33,11 +33,13 @@ const App = () => {
 
     if (typeof all_movies === "undefined") {
       setMovies([]);
+      movie_count = 0;
       return;
     }
 
     if(all_movies.length <= movie_count){
       setMovies(all_movies);
+      movie_count = all_movies.length;
     }
     else{
       var movie_selection = [];
