@@ -42,8 +42,8 @@ Supported actions are:
 
 - `Hover` over a movie -> shows description
 - `Click` on a movie -> starts the videoplayer with the filename from the db
-- `Escape`/`Backspace`/`ArrowLeft` -> reload
-- `ArrowRight`/`ArrowUp` -> select movies
+- `Escape`/`Backspace`/ `ArrowUp` -> reload
+- `ArrowRight`/ `ArrowLeft` -> select movies
 - `Enter` -> start selected movie
 
 > **Note:** If a poster is not available the `noimage.png` is shown
