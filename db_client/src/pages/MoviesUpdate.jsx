@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Select from 'react-select';
+
 import api from '../api'
 
 import styled from 'styled-components'
@@ -46,7 +48,9 @@ class MoviesUpdate extends Component {
             Poster: '',
             Videofile: '',
             Duration: '',
-            Description: ''
+            Description: '',
+            poster_options: [],
+            film_options: []
         }
     }
 
@@ -63,13 +67,13 @@ class MoviesUpdate extends Component {
         this.setState({ Year })
     }
 
-    handleChangeInputPoster = async event => {
-        const Poster = event.target.value
+    handleChangeInputPoster = async value => {
+        const Poster = value;
         this.setState({ Poster })
     }
 
-    handleChangeInputVideofile = async event => {
-        const Videofile = event.target.value
+    handleChangeInputVideofile = async value => {
+        const Videofile = value;
         this.setState({ Videofile })
     }
 
@@ -99,6 +103,7 @@ class MoviesUpdate extends Component {
                     Description: ''
                 })
             })
+            .then( () => window.location.reload(false))
         }catch(e){
             window.alert(`Update-Error: Check if the Input is complete and make sure that all Types are correct`);
             console.error(e);
@@ -109,6 +114,16 @@ class MoviesUpdate extends Component {
         const { id } = this.state
         const movie = await api.getMovieById(id)
 
+        const poster_names = await fetch('http://localhost:1337/poster')
+            .then(response => response.json())
+            .then(data => data.map(item => ({ value: item.name, label: item.name })))
+            .catch(error => console.error(error));
+        
+        const film_names = await fetch('http://localhost:1337/poster')
+            .then(response => response.json())
+            .then(data => data.map(item => ({ value: item.name, label: item.name })))
+            .catch(error => console.error(error));
+
         this.setState({
             Name: movie.data.data.Name,
             Year: movie.data.data.Year,
@@ -116,11 +131,13 @@ class MoviesUpdate extends Component {
             Videofile: movie.data.data.Videofile,
             Duration: movie.data.data.Duration,
             Description: movie.data.data.Description,
+            poster_options: poster_names,
+            film_options: film_names
         })
     }
 
     render() {
-        const { Name, Year, Poster, Videofile, Duration, Description } = this.state
+        const { Name, Year, Poster, Videofile, Duration, Description, poster_options, film_options } = this.state
         return (
             <Wrapper>
                 <Title>Update Movie</Title>
@@ -141,17 +158,17 @@ class MoviesUpdate extends Component {
                 />
 
                 <Label>Poster (filename): </Label>
-                <InputText
-                    type="text"
-                    value={Poster}
-                    onChange={this.handleChangeInputPoster}
+                <Select
+                    options={poster_options}
+                    defaultValue={ { value: Poster, label: Poster } || 'Select'}
+                    onChange={(choice) => this.handleChangeInputPoster(choice.value)}
                 />
-
+            
                 <Label>Video (filename): </Label>
-                <InputText
-                    type="text"
-                    value={Videofile}
-                    onChange={this.handleChangeInputVideofile}
+                <Select
+                    options={film_options}
+                    defaultValue={ { value: Videofile, label: Videofile } || 'Select'}
+                    onChange={(choice) => this.handleChangeInputVideofile(choice.value)}
                 />
                 
                 <Label>Duration (min): </Label>
