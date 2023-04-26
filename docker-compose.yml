@@ -5,13 +5,13 @@ services:
     image: mongo
     restart: unless-stopped
     environment:
-      MONGO_INITDB_DATABASE: "films"
+      MONGO_INITDB_DATABASE: films
     volumes:
       - type: bind
         source: ./mongo/db
         target: /data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
     networks:
       - default
 
@@ -21,9 +21,11 @@ services:
         context: ./client/
         dockerfile: Dockerfile
     ports:
-        - "3001:3001"
+        - 3001:3001
     networks:
       - default
+    depends_on:
+      - db-server
 
   db-client:
     restart: unless-stopped
@@ -31,9 +33,11 @@ services:
       context: ./db_client/
       dockerfile: Dockerfile
     ports:
-        - "8000:8000"
+        - 8000:8000
     networks:
       - default
+    depends_on:
+      - db-server
   
   db-server:
     restart: unless-stopped
@@ -41,9 +45,11 @@ services:
         context: ./db_server/
         dockerfile: Dockerfile
     ports:
-        - "3000:3000"
+        - 3000:3000
     networks:
       - default
+    depends_on:
+      - mongo
   
   fileserver:
     restart: unless-stopped
@@ -53,6 +59,6 @@ services:
     volumes:
       - ./videoplayer/:/movie-app/:ro
     ports:
-      - "1337:1337"
+      - 1337:1337
     networks:
       - default
