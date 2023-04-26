@@ -94,16 +94,7 @@ class MoviesUpdate extends Component {
         try{
             await api.updateMovieById(id, payload).then(res => {
                 window.alert(`Movie updated successfully`)
-                this.setState({
-                    Name: '',
-                    Year: '',
-                    Poster: '',
-                    Videofile: '',
-                    Duration: '',
-                    Description: ''
-                })
             })
-            .then( () => window.location.reload(false))
         }catch(e){
             window.alert(`Update-Error: Check if the Input is complete and make sure that all Types are correct`);
             console.error(e);
@@ -119,7 +110,7 @@ class MoviesUpdate extends Component {
             .then(data => data.map(item => ({ value: item.name, label: item.name })))
             .catch(error => console.error(error));
         
-        const film_names = await fetch('http://localhost:1337/poster')
+        const film_names = await fetch('http://localhost:1337/films')
             .then(response => response.json())
             .then(data => data.map(item => ({ value: item.name, label: item.name })))
             .catch(error => console.error(error));

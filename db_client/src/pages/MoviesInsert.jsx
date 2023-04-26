@@ -115,7 +115,7 @@ class MoviesInsert extends Component {
             .then(data => data.map(item => ({ value: item.name, label: item.name })))
             .catch(error => console.error(error));
         
-        const film_names = await fetch('http://localhost:1337/poster')
+        const film_names = await fetch('http://localhost:1337/films')
             .then(response => response.json())
             .then(data => data.map(item => ({ value: item.name, label: item.name })))
             .catch(error => console.error(error));
