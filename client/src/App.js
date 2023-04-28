@@ -59,15 +59,15 @@ const App = () => {
   }
 
   const update_metadata = () => {
-    getElem("metadata").innerText = get_metadata();
+    getElem("metadata").innerHTML = get_metadata();
   }
 
   const get_metadata = () => {
+    if (typeof movies[counter] === "undefined") return "";
     var name = movies[counter]?.Name;
     var year = movies[counter]?.Year;
     var desc = movies[counter]?.Description;
-    if (name === "undefined" || year === "undefined" || desc === "undefined") return "";
-    return name + " (" + year + "):\n" + desc;
+    return name + " (" + year + "):<br/>" + desc;
   }
 
   document.onkeydown = function (event) {
@@ -126,7 +126,7 @@ const App = () => {
           <h2>No movies found</h2>
         </div>
       )}
-      <h2 id="metadata">{get_metadata()}</h2>
+      <h2 id="metadata" dangerouslySetInnerHTML={{__html: get_metadata()}}></h2>
     </div>
   );
 };
