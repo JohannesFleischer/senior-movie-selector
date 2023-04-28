@@ -9,8 +9,7 @@ const MovieCard = ({ id, selected, movie: { ID, Name, Year, Poster, Videofile, D
   return (
     <div id={id} key={ID} style={{cursor: "pointer" }} className={id !== selected? "movie": "movie selected"} onClick={ () => redirect(videoplayer_url + Videofile)}>
       <div>
-        <p>{Year}</p>
-        <h4> {Description} </h4>
+        <h2>{Duration} Min</h2>
       </div>
 
       <div>
@@ -18,7 +17,6 @@ const MovieCard = ({ id, selected, movie: { ID, Name, Year, Poster, Videofile, D
       </div>
 
       <div>
-        <span>{Duration} Min</span>
         <h3>{Name}</h3>
       </div>
     </div>

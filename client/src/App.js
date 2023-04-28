@@ -6,7 +6,7 @@ import "./App.css";
 const API_URL = "http://localhost:3000/api/movies"
 const css_class = "selected"
 
-var movie_count = 5;
+var movie_count = 4;
 var counter = 0;
 
 const App = () => {
@@ -58,17 +58,31 @@ const App = () => {
     return Array.from(set);
   }
 
+  const update_metadata = () => {
+    getElem("metadata").innerText = get_metadata();
+  }
+
+  const get_metadata = () => {
+    var name = movies[counter]?.Name;
+    var year = movies[counter]?.Year;
+    var desc = movies[counter]?.Description;
+    if (name === "undefined" || year === "undefined" || desc === "undefined") return "";
+    return name + " (" + year + "):\n" + desc;
+  }
+
   document.onkeydown = function (event) {
     try{
       if (event.key === "ArrowRight") {
           rmvCssClass(counter, css_class);
           inc_counter();
           addCssClass(counter, css_class);
+          update_metadata();
       } 
       else if (event.key === "ArrowLeft") {
           rmvCssClass(counter, css_class);  
           dec_counter();
           addCssClass(counter, css_class);
+          update_metadata();
       } 
       else if (event.key === "Enter") {
           getElem(counter).click();
@@ -112,6 +126,7 @@ const App = () => {
           <h2>No movies found</h2>
         </div>
       )}
+      <h2 id="metadata">{get_metadata()}</h2>
     </div>
   );
 };

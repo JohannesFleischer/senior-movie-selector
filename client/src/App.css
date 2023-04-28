@@ -40,6 +40,17 @@ h1 {
   width: fit-content;
 }
 
+h2 {
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 0.9px;
+  background: rgb(249, 211, 180);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+}
+
 .search {
   width: 71%;
   margin: 4rem 0 2rem;
@@ -186,12 +197,12 @@ h1 {
 
 .movie:hover div:nth-of-type(2) {
   height: 100%;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .selected div:nth-of-type(2) {
   height: 100%;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .movie:hover div:nth-of-type(3) {
