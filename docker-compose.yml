@@ -58,6 +58,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./videoplayer/:/movie-app/:ro
+      - ./videoplayer/films/:/movie-app/films:ro
+      - ./videoplayer/poster/:/movie-app/poster:ro
     ports:
       - 1337:1337
     networks:
