@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     build:
         context: ./client/
-        dockerfile: Dockerfile.prod
+        dockerfile: Dockerfile.dev
     ports:
         - 3001:3001
     networks:
@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     build:
       context: ./db_client/
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
         - 8000:8000
     networks:
