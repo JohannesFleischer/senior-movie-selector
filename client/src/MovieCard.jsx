@@ -2,8 +2,6 @@ import React from 'react';
 
 const base_url =  "http://localhost:1337"
 const videoplayer_url = base_url + "/main.html?film=";
-const img_base = base_url + "/poster/";
-const noimage_url = img_base + "noimage.png"; 
 
 const MovieCard = ({ id, selected, movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
   return (
