@@ -1,6 +1,6 @@
 # Custom
-videoplayer/films/*
-videoplayer/poster/*
+fileserver/films/*
+fileserver/poster/*
 mongo/db
 
 # Logs

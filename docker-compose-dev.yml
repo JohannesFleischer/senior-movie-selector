@@ -2,6 +2,7 @@ version: '3.1'
 
 services:
   mongo:
+    container_name: senior-movie-selector-mongo-dev
     image: mongo
     restart: unless-stopped
     environment:
@@ -12,55 +13,49 @@ services:
         target: /data/db
     ports:
       - 27017:27017
-    networks:
-      - default
 
   client:
+    container_name: senior-movie-selector-client-dev
     restart: unless-stopped
     build:
         context: ./client/
         dockerfile: Dockerfile.dev
     ports:
-        - 3001:3001
-    networks:
-      - default
+        - 80:80
     depends_on:
       - db-server
 
   db-client:
+    container_name: senior-movie-selector-db-client-dev
     restart: unless-stopped
     build:
       context: ./db_client/
       dockerfile: Dockerfile.dev
     ports:
         - 8000:8000
-    networks:
-      - default
     depends_on:
       - db-server
   
   db-server:
+    container_name: senior-movie-selector-db-server-dev
     restart: unless-stopped
     build:
         context: ./db_server/
         dockerfile: Dockerfile
     ports:
         - 3000:3000
-    networks:
-      - default
     depends_on:
       - mongo
   
   fileserver:
+    container_name: senior-movie-selector-fileserver-dev
     restart: unless-stopped
     build:
-      context: ./videoplayer/
+      context: ./fileserver/
       dockerfile: Dockerfile
     volumes:
-      - ./videoplayer/:/movie-app/:ro
-      - ./videoplayer/films/:/movie-app/films:ro
-      - ./videoplayer/poster/:/movie-app/poster:ro
+      - ./fileserver/:/movie-app/:ro
+      - ./fileserver/films/:/movie-app/films:ro
+      - ./fileserver/poster/:/movie-app/poster:ro
     ports:
       - 1337:1337
-    networks:
-      - default

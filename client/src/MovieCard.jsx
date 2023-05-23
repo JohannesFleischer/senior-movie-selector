@@ -1,11 +1,11 @@
 import React from 'react';
 
 const base_url =  "http://localhost:1337"
-const videoplayer_url = base_url + "/main.html?film=";
+const fileserver_url = base_url + "/main.html?film=";
 
 const MovieCard = ({ id, selected, movie: { ID, Name, Year, Poster, Videofile, Duration, Description }}) => {
   return (
-    <div id={id} key={ID} style={{cursor: "pointer" }} className={id !== selected? "movie": "movie selected"} onClick={ () => redirect(videoplayer_url + Videofile)}>
+    <div id={id} key={ID} style={{cursor: "pointer" }} className={id !== selected? "movie": "movie selected"} onClick={ () => redirect(fileserver_url + Videofile)}>
       <div>
         <h2>{Duration} Min</h2>
       </div>
