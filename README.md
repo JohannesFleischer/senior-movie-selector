@@ -4,25 +4,32 @@
 
 ## Start
 
+## Production (you probably want to do this)
+
 `docker compose up -d`
+> **Note:** if you want to use the application after reboots you should restart it with `docker compose restart`
+
+## Developement
+
+`docker compose -f docker-compose-dev.yml up -d`
+> **Note:** if you want to edit a react service i recommend to start this service first e.g. with `nodemon` and then launch the other services with `docker compose` so you don't have to rebuild all services every time
 
 ## Services
 
 ### for users
 
-- [db_client](http://localhost:8000) on localhost:8000 to insert or edit Movies in the DB
-- [client](http://localhost:3001) on localhost:3001 to select and watch movies
+- [db_client](http://localhost:8000) to insert or edit Movies in the DB
+- [client](http://localhost) to select and watch movies
 
 ### for nerds
 
-- [db_server](http://localhost:3000) on localhost:3000 with the db-api
-- [videoplayer](http://localhost:1337/main.html) on localhost:1337 that hosts the videoplayer and serves as a poster-fileserver for the client.
-> kinda looks broken without proper file input (?film=\<filename\>)
-- dockerized mongodb
+- [db_server](http://localhost:3000) with the db-api for the actual mongo-db
+- [fileserver](http://localhost:1337) that serves as a file server for the other services and hosts the videoplayer.
+- [mongodb](http://localhost:27017) actual db that stores the data in the `mongo` folder
 
 ## Setup
 
-1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster`
+1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks.
 
 2. create db entries for all films with the db_client
 
@@ -46,16 +53,20 @@ Supported actions are:
 
 > **Note:** If a poster is not available the `noimage.png` is shown
 
-### Videoplayer
+### Fileserver
 
-The second user application is the `videoplayer`.
+The second user application is the `fileserver`.
 In general this address has not to be opened manually. If you want to do so see [Services](#services).
-The Videoplayer tries to open the videofile with the name from the db.
-If the file is not found it redirects to the `client`.
-If the Videofile is found the videoplayer tries to start it automatically in \"fullscreen\" (technically just laaarge)
-> **Note:** to start the video automatically in Firefox this has to be allowed manually
+The file server hosts all film and poster files but also fonts and the static videoplayer file:
 
-Supported files are [depending on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
+#### Videoplayer
+The videoplayer (main.html) takes an filename as a url parameter and tries to open that file.
+When clicking on a film in the `client` you get redirected to the videoplayer. The player then tries to open the videofile with the name from the db.
+If the file is not found or if an error occurs you get redirected back to the `client`.
+If the videofile is found the videoplayer tries to start it automatically in \"fullscreen\" (technically just laaarge)
+> **Notes:**
+> - to start the video automatically in Firefox this has to be allowed manually at least once
+> - Supported filetypes are [depending on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
 
 Supported actions are:
 
