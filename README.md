@@ -6,13 +6,18 @@
 
 ## Production (you probably want to do this)
 
-`docker compose up -d`
+```sh 
+docker compose up -d
+```
 > **Note:** if you want to use the application after reboots you should restart it with `docker compose restart`
 
 ## Developement
 
-`docker compose -f docker-compose-dev.yml up -d`
-> **Note:** if you want to edit a react service i recommend to start this service first e.g. with `nodemon` and then launch the other services with `docker compose` so you don't have to rebuild all services every time
+```sh
+docker compose -f docker-compose-dev.yml up -d
+```
+
+> **Note:** if you want to edit a react service i recommend to start this service first (e.g. with `nodemon`) and then launch the other services with `docker compose` so you don't have to rebuild all services every time
 
 ## Services
 
@@ -30,11 +35,7 @@
 ## Setup
 
 1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks.
-
 2. create db entries for all films with the db_client
-
-> Do not enter the whole path for the files. The filename is all you need.
-
 3. profit
 
 ## Usage
@@ -50,8 +51,6 @@ Supported actions are:
 - `Escape`/`Backspace`/ `ArrowUp` -> reload
 - `ArrowRight`/ `ArrowLeft` -> select movies
 - `Enter` -> start selected movie
-
-> **Note:** If a poster is not available the `noimage.png` is shown
 
 ### Fileserver
 
@@ -72,7 +71,7 @@ Supported actions are:
 
 - `Click`/`Enter` -> start/stop
 - `Backspace` -> return to `client`
-- `ArrowRight`/`ArrowLeft` -> +/-15 seconds (can be hold for longer periods)
+- `ArrowRight`/`ArrowLeft` -> ±15 seconds (can be hold for longer periods)
 
 ## Dependencies
 
