@@ -27,6 +27,8 @@
         player.onended = openClient;
         player.onerror = openClient;
 
+        resizeFullscreen(player);
+
         document.onkeydown = function (event) {
             if (event.key === "ArrowRight") {
                 player.currentTime += 15;
@@ -44,12 +46,10 @@
             }
         }
         
-
         window.onload = function () {
             const filepath = "films/" + new URLSearchParams(window.location.search).get("film").toString();
             player.src = filepath;
             player.fill = true;
-            resizeFullscreen(player);
         }
 
         function openClient() {

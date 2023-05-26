@@ -1,17 +1,17 @@
 # Senior Movie Selector
 
-> **Note:** Chrome support is currently wip. It runs best on Firefox.
-
 ## Start
 
 ## Production
 
-```sh 
+```sh
 docker compose up -d
 ```
-> **Notes:** 
+
+> **Notes:**
+>
 > - if you want to use the application after reboots you should restart it with `docker compose restart`
-> - to run it on a raspi see [here](#additional) 
+> - to run it on a raspi see [here](#additional)
 
 ## Developement
 
@@ -36,7 +36,7 @@ docker compose -f docker-compose-dev.yml up -d
 
 ## Setup
 
-1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks.
+1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks and then restart with `docker compose restart`.
 2. create db entries for all films with the db_client
 3. profit
 
@@ -61,11 +61,14 @@ In general this address has not to be opened manually. If you want to do so see 
 The file server hosts all film and poster files but also fonts and the static videoplayer file:
 
 #### Videoplayer
+
 The videoplayer (main.html) takes an filename as a url parameter and tries to open that file.
 When clicking on a film in the `client` you get redirected to the videoplayer. The player then tries to open the videofile with the name from the db.
 If the file is not found or if an error occurs you get redirected back to the `client`.
 If the videofile is found the videoplayer tries to start it automatically in \"fullscreen\" (technically just laaarge)
+
 > **Notes:**
+>
 > - to start the video automatically in Firefox this has to be allowed manually at least once
 > - Supported filetypes are [depending on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
 
@@ -81,8 +84,8 @@ see [here](DEPENDENCIES.md)
 
 ## Additional
 
-1. To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`<br>
+1. To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`</br>
 or [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) with `mongo:4.4.18` in the `docker-compose.yml` on `raspi 4+`
 
-2. Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
+1. Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
 To make it even easier to use with an remote you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
