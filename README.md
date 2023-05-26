@@ -81,7 +81,8 @@ see [here](DEPENDENCIES.md)
 
 ## Additional
 
-1. To run on a raspberry pi use [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) and `mongo:4.4.18` in the `docker-compose.yml`
+1. To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`<br>
+or [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) with `mongo:4.4.18` in the `docker-compose.yml` on `raspi 4+`
 
 2. Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
 To make it even easier to use with an remote you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
