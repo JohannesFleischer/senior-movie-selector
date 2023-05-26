@@ -4,12 +4,14 @@
 
 ## Start
 
-## Production (you probably want to do this)
+## Production
 
 ```sh 
 docker compose up -d
 ```
-> **Note:** if you want to use the application after reboots you should restart it with `docker compose restart`
+> **Notes:** 
+> - if you want to use the application after reboots you should restart it with `docker compose restart`
+> - to run it on a raspi see [here](#additional) 
 
 ## Developement
 
