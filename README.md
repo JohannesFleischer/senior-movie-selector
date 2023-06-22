@@ -84,8 +84,27 @@ see [here](DEPENDENCIES.md)
 
 ## Additional
 
-1. To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`</br>
+### Information about hosting on a pi
+
+To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`</br>
 or [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) on `raspi 4+`
 
-1. Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
+
+### Information about remote easyfications
+
+ Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
 To make it even easier to use with an remote you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
+
+### Information about updating the database externally
+
+The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database from another computer using ssh port forwarding. This can be done on Linux for example with this command `ssh -L 3000:127.0.0.1:3000 <user>@<ip-of-your-pie>` or alternatively with this entry in your `~/.ssh/config`
+
+```sh
+Host pi-db-fwd
+	HostName <ip-of-your-pie>
+	User <user>
+	LocalForward 3000 127.0.0.1:3000
+```
+
+and the corresponding command `ssh pi-db-fwd`.
+After that the `db-client` can be started on your computer and it will automatically access the database of your pie. The whole thing also works over a VPN connection.
