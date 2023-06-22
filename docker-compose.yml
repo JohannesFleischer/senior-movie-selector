@@ -18,10 +18,10 @@ services:
     container_name: senior-movie-selector-client
     restart: unless-stopped
     build:
-        context: ./client/
-        dockerfile: Dockerfile.prod
+      context: ./client/
+      dockerfile: Dockerfile.prod
     ports:
-        - 80:80
+      - 80:80
     depends_on:
       - db-server
 
@@ -32,21 +32,21 @@ services:
       context: ./db_client/
       dockerfile: Dockerfile.prod
     ports:
-        - 8000:8000
+      - 8000:8000
     depends_on:
       - db-server
-  
+
   db-server:
     container_name: senior-movie-selector-db-server
     restart: unless-stopped
     build:
-        context: ./db_server/
-        dockerfile: Dockerfile
+      context: ./db_server/
+      dockerfile: Dockerfile
     ports:
-        - 3000:3000
+      - 3000:3000
     depends_on:
       - mongo
-  
+
   fileserver:
     container_name: senior-movie-selector-fileserver
     restart: unless-stopped
