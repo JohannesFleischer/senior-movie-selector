@@ -2,18 +2,31 @@
 
 ## Start
 
-## Production
+### Production
+
+To run the latest official release download the `docker-compose.yml` first. After that you can use the following command to pull and start the containers:
 
 ```sh
 docker compose up -d
 ```
 
-> **Notes:**
+---
+
+If you don't want to use the official images or if your platform ist not supported (yet) you can also download the whole project and then build and start the containers yourself with the following command:
+
+```sh
+docker compose -f docker-compose-prod.yml up -d
+```
+---
+
+> **Important:**
 >
 > - if you want to use the application after reboots you should restart it with `docker compose restart`
-> - to run it on a raspi see [here](#additional)
+> - If you want to run it on a raspi you can find more information [here](#information-about-hosting-on-a-pi)
 
-## Developement
+### Development
+
+To run the development version you can use the following command:
 
 ```sh
 docker compose -f docker-compose-dev.yml up -d
@@ -25,19 +38,19 @@ docker compose -f docker-compose-dev.yml up -d
 
 ### for users
 
-- [db_client](http://localhost:8000) to insert or edit Movies in the DB
+- [db-client](http://localhost:8000) to insert or edit Movies in the DB
 - [client](http://localhost) to select and watch movies
 
 ### for nerds
 
-- [db_server](http://localhost:3000) with the db-api for the actual mongo-db
+- [db-server](http://localhost:3000) with the db-api for the actual `mongo-db`
 - [fileserver](http://localhost:1337) that serves as a file server for the other services and hosts the videoplayer.
-- [mongodb](http://localhost:27017) actual db that stores the data in the `mongo` folder
+- [mongo](http://localhost:27017) actual db that stores the data in the `mongo` folder
 
 ## Setup
 
 1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks and then restart with `docker compose restart`.
-2. create db entries for all films with the db_client
+2. create db entries for all films with the `db-client`
 3. profit
 
 ## Usage
@@ -92,19 +105,20 @@ or [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) on `raspi
 
 ### Information about remote easyfications
 
- Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used
-To make it even easier to use with an remote you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
+ Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used.
+To make it even easier to use you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
 
 ### Information about updating the database externally
 
-The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database from another computer using ssh port forwarding. This can be done on Linux for example with this command `ssh -L 3000:127.0.0.1:3000 <user>@<ip-of-your-pie>` or alternatively with this entry in your `~/.ssh/config`
+The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database from another computer using ssh port forwarding. This can be done on Linux for example with this command `ssh -L 3000:127.0.0.1:3000 <user>@<ip-of-your-pi>` or alternatively with this entry in your `~/.ssh/config`
 
 ```sh
 Host pi-db-fwd
-	HostName <ip-of-your-pie>
+	HostName <ip-of-your-pi>
 	User <user>
 	LocalForward 3000 127.0.0.1:3000
 ```
 
 and the corresponding command `ssh pi-db-fwd`.
-After that the `db-client` can be started on your computer and it will automatically access the database of your pie. The whole thing also works over a VPN connection.
+After that the `db-client` can be started with `docker compose -f docker-compose-dev.yml up db-client -d` on your computer and it will automatically access the database of your pi.
+The whole thing also works over a VPN connection.
