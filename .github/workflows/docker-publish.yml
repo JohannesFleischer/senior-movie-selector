@@ -19,8 +19,8 @@ jobs:
           docker login --username JohannesFleischer --password $PASSWORD $REGISTRY
       - name: Build Images
         run: |
-          docker build ./client --tag $BASE_TAG-client:latest
-          docker build ./db_client --tag $BASE_TAG-db-client:latest
+          docker build -f ./client/Dockerfile.prod ./client --tag $BASE_TAG-client:latest
+          docker build -f ./db_client/Dockerfile.prod ./db_client --tag $BASE_TAG-db-client:latest
           docker build ./db_server --tag $BASE_TAG-db-server:latest
           docker build ./fileserver --tag $BASE_TAG-fileserver:latest
       - name: Push Images
