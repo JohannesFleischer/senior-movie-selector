@@ -27,7 +27,7 @@ services:
     container_name: senior-movie-selector-db-client-dev
     restart: unless-stopped
     build:
-      context: ./db_client/
+      context: ./db-client/
       dockerfile: Dockerfile.dev
     ports:
       - 8000:8000
@@ -36,7 +36,7 @@ services:
     container_name: senior-movie-selector-db-server-dev
     restart: unless-stopped
     build:
-      context: ./db_server/
+      context: ./db-server/
       dockerfile: Dockerfile
     ports:
       - 3000:3000
