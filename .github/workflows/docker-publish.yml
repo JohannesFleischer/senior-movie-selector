@@ -7,7 +7,7 @@ on:
 env:
   REGISTRY: ghcr.io
   PASSWORD: ${{ secrets.GH_PAT }}
-  BASE_TAG: ghcr.io/${{ github.repository }}
+  BASE_TAG: ghcr.io/johannesfleischer/senior-movie-selector
 
 jobs:
   build-and-push-images:
