@@ -2,6 +2,7 @@
 fileserver/films/*
 fileserver/poster/*
 mongo/db
+!.gitkeep
 
 # Logs
 logs
