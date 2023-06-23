@@ -1,0 +1,31 @@
+name: Docker
+
+on:
+  release:
+    types: [created]
+
+env:
+  REGISTRY: ghcr.io
+  PASSWORD: ${{ secrets.GH_PAT }}
+  BASE_TAG: ghcr.io/${{ github.repository }}
+
+jobs:
+  build-and-push-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login Registry
+        run: |
+          docker login --username JohannesFleischer --password $PASSWORD $REGISTRY
+      - name: Build Images
+        run: |
+          docker build ./client --tag $BASE_TAG-client:latest
+          docker build ./db_client --tag $BASE_TAG-db-client:latest
+          docker build ./db_server --tag $BASE_TAG-db-server:latest
+          docker build ./fileserver --tag $BASE_TAG-fileserver:latest
+      - name: Push Images
+        run: |
+          docker push $BASE_TAG-client:latest
+          docker push $BASE_TAG-db-client:latest
+          docker push $BASE_TAG-db-server:latest
+          docker push $BASE_TAG-fileserver:latest
