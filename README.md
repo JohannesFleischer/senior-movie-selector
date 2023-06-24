@@ -4,7 +4,7 @@
 
 ### Production
 
-To run the latest official release download the `docker-compose.yml` first. After that you can use the following command to pull and start the containers:
+To run the latest official release download the sourcecode first. After that you can use the following command to pull and start the containers:
 
 ```sh
 docker compose up -d
