@@ -46,8 +46,7 @@ services:
     image: ghcr.io/johannesfleischer/senior-movie-selector-fileserver:latest
     restart: unless-stopped
     volumes:
-      - ./fileserver/:/movie-app/:ro
-      - ./fileserver/films/:/movie-app/films:ro
-      - ./fileserver/poster/:/movie-app/poster:ro
+      - ./films/:/movie-app/films:ro
+      - ./poster/:/movie-app/poster:ro
     ports:
       - 1337:1337

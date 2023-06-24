@@ -54,8 +54,7 @@ services:
       context: ./fileserver/
       dockerfile: Dockerfile
     volumes:
-      - ./fileserver/:/movie-app/:ro
-      - ./fileserver/films/:/movie-app/films:ro
-      - ./fileserver/poster/:/movie-app/poster:ro
+      - ./films/:/movie-app/films:ro
+      - ./poster/:/movie-app/poster:ro
     ports:
       - 1337:1337

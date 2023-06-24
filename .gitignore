@@ -1,6 +1,6 @@
 # Custom
-fileserver/films/*
-fileserver/poster/*
+films/*
+poster/*
 mongo/db
 !.gitkeep
 
