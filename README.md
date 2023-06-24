@@ -4,7 +4,23 @@
 
 ### Production
 
-To run the latest official release download the `docker-compose.yml` and create a `films` and a `poster` folder/symlink in the same directory for your media. After that you can use the following command to pull and start the containers:
+To run the latest official release download the `docker-compose.yml` and create a `films`, `mongo/db` and `poster` folder (or symlink for your media) in the same directory. So it should look kinda like this:
+
+```txt
+senior-movie-selector/
+├─ films/
+│  ├─ film-1.mp4
+│  ├─ film-2.mp4
+│  ├─ ...
+├─ mongo/db/
+├─ poster/
+│  ├─ poster-1.png
+│  ├─ poster-2.png
+│  ├─ ...
+├─ docker-compose.yml
+```
+
+After that you can use the following command to pull and start the containers:
 
 ```sh
 docker compose up -d
