@@ -1,0 +1,17 @@
+---
+
+# The name of your pi user
+host_username: john # pi
+
+# The local ip of your pi. The default value is just an example
+host_ip_address: 192.168.178.63
+
+# The release version of the senior-movie-selector project you want to install 
+version: v1.0.0
+
+# Path to the media folder with the films if you want to replace the default folders with links to the folder. Leave empty if thats not the case
+films_media_path: "/media/{{ host_username }}/CC8D-4203/films" # ""
+
+# Path to the media folder with the poster if you want to replace the default folders with links to the folder. Leave empty if thats not the case
+poster_media_path: "/media/{{ host_username }}/CC8D-4203/poster"
+

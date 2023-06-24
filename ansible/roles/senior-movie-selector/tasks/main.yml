@@ -1,0 +1,16 @@
+---
+
+- name: Install Docker
+  # curl -sSL https://get.docker.com | sh
+
+- name: Add user to Dockergroup
+  # sudo usermod -aG docker $USER && newgrp docker
+
+- name: Create files from template
+
+- name: Make sure directory exists
+
+- name: Download docker-compose.yml
+
+- name: Start Project
+

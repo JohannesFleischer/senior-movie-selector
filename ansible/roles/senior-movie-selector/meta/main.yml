@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Johannes Fleischer
+  description: Sets up the Senior-Movie-selector project on raspbian (64bit).
+
+  issue_tracker_url: https://github.com/JohannesFleischer/senior-movie-selector/issues
+
+  license: All rights reserved.
+
+  min_ansible_version: "2.1"
+
+  platforms:
+    - name: raspbian
+
+  galaxy_tags:
+    []
+
+dependencies:
+  []
