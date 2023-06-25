@@ -1,7 +1,8 @@
 # Custom
-films/*
-poster/*
-mongo/db
+films/
+poster/
+mongo/db/
+#ansible/collections/
 !.gitkeep
 
 # Logs

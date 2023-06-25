@@ -1,0 +1,9 @@
+---
+- name: Install senior-movie-selector on a pie
+  hosts: pi
+
+  vars_files:
+    - vars/vars.yml
+
+  roles:
+    - senior-movie-selector

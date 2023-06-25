@@ -2,6 +2,8 @@
 
 ## Start
 
+The [Production](#production) and [Development](#development) sections include informations to manually install the project. If you want to use a raspberry pi to host the project there is also a [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) role in this repository that you can use to install the project and setup a auto start. You can fin more information [here](#information-about-hosting-on-a-pi)
+
 ### Production
 
 To run the latest official release download the `docker-compose.yml` and create a `films`, `mongo/db` and `poster` folder (or symlink for your media) in the same directory. So it should look kinda like this:
@@ -115,9 +117,29 @@ see [here](DEPENDENCIES.md)
 
 ### Information about hosting on a pi
 
-To run on a raspberry pi use either the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3+`</br>
-or [ubuntu for raspberry pi](https://ubuntu.com/download/raspberry-pi) on `raspi 4+`
+To run on a raspberry pi use the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3` or higher
 
+For the installation and the setup of the autostart you can use Ansible role in `./ansible/`
+
+> **IMPORTANT:** Ansible run on your pc, <u>not on your pi</u> and executes commands via a ssh connection. To use the role a [passwordless ssh connection](https://www.ssh.com/academy/ssh/copy-id) to the pi is necessary.
+
+Once that is ensured, you can follow the steps below for installation and setup.
+
+1. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) on your pc
+2. Download the repository on your pc
+3. Navigate to the `ansible` folder of the repository
+4. Install the requirements with:
+
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
+5. Customize the variables in the `vars/vars.yml` file to your liking
+6. Start the role with:
+
+```sh
+ansible-playbook install.yml
+```
 
 ### Information about remote easyfications
 

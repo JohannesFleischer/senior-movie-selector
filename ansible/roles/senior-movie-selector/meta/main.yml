@@ -7,12 +7,4 @@ galaxy_info:
   license: All rights reserved.
 
   min_ansible_version: "2.1"
-
-  platforms:
-    - name: raspbian
-
-  galaxy_tags:
-    []
-
-dependencies:
-  []
+  
