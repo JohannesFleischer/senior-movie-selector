@@ -8,6 +8,7 @@ env:
   REGISTRY: ghcr.io
   PASSWORD: ${{ secrets.GH_PAT }}
   BASE_TAG: ghcr.io/johannesfleischer/senior-movie-selector
+  PLATFORMS: linux/amd64,linux/arm64/v8,windows/amd64
 
 jobs:
   build-and-push-images:
@@ -15,17 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Login Registry
-        run: |
-          docker login --username JohannesFleischer --password $PASSWORD $REGISTRY
+        run:  docker login --username JohannesFleischer --password $PASSWORD $REGISTRY
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       - name: Build Images
         run: |
-          docker build -f ./client/Dockerfile.prod ./client --tag $BASE_TAG-client:latest
-          docker build -f ./db-client/Dockerfile.prod ./db-client --tag $BASE_TAG-db-client:latest
-          docker build ./db-server --tag $BASE_TAG-db-server:latest
-          docker build ./fileserver --tag $BASE_TAG-fileserver:latest
-      - name: Push Images
-        run: |
-          docker push $BASE_TAG-client:latest
-          docker push $BASE_TAG-db-client:latest
-          docker push $BASE_TAG-db-server:latest
-          docker push $BASE_TAG-fileserver:latest
+          docker buildx create --use
+          docker buildx build -f ./client/Dockerfile.prod ./client --platform $PLATFORMS --tag $BASE_TAG-client:latest --push
+          docker buildx build -f ./db-client/Dockerfile.prod ./db-client --platform $PLATFORMS --tag $BASE_TAG-db-client:latest --push
+          docker buildx build ./db-server --platform $PLATFORMS --tag $BASE_TAG-db-server:latest --push
+          docker buildx build ./fileserver --platform $PLATFORMS --tag $BASE_TAG-fileserver:latest --push
