@@ -1,0 +1,78 @@
+---
+- name: Make sure directories exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+  loop:
+    - "{{ senior_movie_selector_project_dir }}"
+    - "{{ senior_movie_selector_project_dir }}/mongo/db"
+    - "/home/{{ senior_movie_selector_project_owner }}/.config/autostart"
+
+# Create films directory or symlink:
+- name: Create 'films' directory if the path is empty
+  ansible.builtin.file:
+    path: "{{ senior_movie_selector_project_dir }}/films"
+    state: directory
+    mode: "0700"
+  when: senior_movie_selector_films_path == ""
+
+- name: Make sure the 'films' link exists if the path is not empty
+  ansible.builtin.file:
+    src: "{{ senior_movie_selector_films_path }}"
+    dest: "{{ senior_movie_selector_project_dir }}/films"
+    state: link
+  when: senior_movie_selector_films_path != ""
+
+# Create poster directory or symlink:
+- name: Make sure the 'poster' directory exists if the path is empty
+  ansible.builtin.file:
+    path: "{{ senior_movie_selector_project_dir }}/poster"
+    state: directory
+    mode: "0700"
+  when: senior_movie_selector_poster_path == ""
+
+- name: Make sure the 'poster' link exists if the path is not empty
+  ansible.builtin.file:
+    src: "{{ senior_movie_selector_poster_path }}"
+    dest: "{{ senior_movie_selector_project_dir }}/poster"
+    state: link
+  when: senior_movie_selector_poster_path != ""
+
+# Create necessary files
+- name: Download docker-compose.yml
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/JohannesFleischer/senior-movie-selector/{{ senior_movie_selector_version }}/docker-compose.yml"
+    dest: "{{ senior_movie_selector_project_dir }}/docker-compose.yml"
+    mode: "0700"
+
+- name: Create autostart files from template if selected
+  ansible.builtin.template:
+    src: "{{ item.src_file }}"
+    dest: "{{ item.dest_file }}"
+    mode: "0700"
+  loop:
+    - { 
+      src_file: "senior-movie-selector.desktop.j2",
+      dest_file: "/home/{{ senior_movie_selector_project_owner }}/.config/autostart/senior-movie-selector.desktop" 
+      }
+    - { 
+      src_file: "senior-movie-selector.sh.j2", 
+      dest_file: "/home/{{ senior_movie_selector_project_owner }}/Desktop/senior-movie-selector.sh" 
+      }
+  when: senior_movie_selector_setup_autostart
+
+- name: Install pip
+  ansible.builtin.apt:
+    name: python3-pip
+
+- name: Install docker and docker-compose python package
+  ansible.builtin.pip:
+    name:
+      - docker
+      - docker-compose 
+
+- name: Start senior-movie-selector
+  community.docker.docker_compose:
+    project_src: "{{ senior_movie_selector_project_dir }}"
+    state: present

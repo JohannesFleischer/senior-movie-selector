@@ -1,0 +1,13 @@
+---
+
+senior_movie_selector_version: "{{ version }}"
+
+senior_movie_selector_films_path: "{{ films_media_path }}"
+
+senior_movie_selector_poster_path: "{{ poster_media_path }}"
+
+senior_movie_selector_project_dir: "{{ project_dir }}"
+
+senior_movie_selector_project_owner: "{{ host_username }}"
+
+senior_movie_selector_setup_autostart: "{{ setup_autostart }}"
