@@ -2,7 +2,7 @@
 
 ## Start
 
-The [Production](#production) and [Development](#development) sections include informations to manually install the project. If you want to use a raspberry pi to host the project there is also a [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) role in this repository that you can use to install the project and setup a auto start. You can fin more information [here](#information-about-hosting-on-a-pi)
+The [Production](#production) and [Development](#development) sections include informations to manually install the project. If you want to use a raspberry pi to host the project there is also a [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) role in this repository that you can use to install the project and setup a auto start. You can find more information [here](#information-about-hosting-on-a-pi)
 
 ### Production
 
@@ -64,12 +64,6 @@ docker compose -f docker-compose-dev.yml up -d
 - [db-server](http://localhost:3000) with the db-api for the actual `mongo-db`
 - [fileserver](http://localhost:1337) that serves as a file server for the other services and hosts the videoplayer.
 - [mongo](http://localhost:27017) actual db that stores the data in the `mongo` folder
-
-## Setup
-
-1. copy movie files in `videoplayer/films` and the film-posters in `videoplayer/poster` or replace the folders with symlinks and then restart with `docker compose restart`.
-2. create db entries for all films with the `db-client`
-3. profit
 
 ## Usage
 
