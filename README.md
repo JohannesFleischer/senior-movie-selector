@@ -142,15 +142,23 @@ To make it even easier to use you can [disable](https://superuser.com/questions/
 
 ### Information about updating the database externally
 
-The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database from another computer using ssh port forwarding. This can be done on Linux for example with this command `ssh -L 3000:127.0.0.1:3000 <user>@<ip-of-your-pi>` or alternatively with this entry in your `~/.ssh/config`
+The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database or check the services from another computer using ssh port forwarding. On Linux this can be done with this entry in your `~/.ssh/config`
 
 ```sh
-Host pi-db-fwd
+Host pi-sms-fwd
 	HostName <ip-of-your-pi>
 	User <user>
+	LocalForward 8000 127.0.0.1:8000
 	LocalForward 3000 127.0.0.1:3000
+	LocalForward 27017 127.0.0.1:27017
+	LocalForward 8080 127.0.0.1:80
+	LocalForward 1337 127.0.0.1:1337
 ```
 
-and the corresponding command `ssh pi-db-fwd`.
-After that the `db-client` can be started with `docker compose -f docker-compose-dev.yml up db-client -d` on your computer and it will automatically access the database of your pi.
+and the corresponding command `ssh pi-sms-fwd`.
+After that the all services on the pi can be accessed with the normal localhost urls. The only exception is the `client`, with can be accessed via  `localhost:8080` because port 80 cant be used for forwarding.
+
 The whole thing also works over a VPN connection.
+
+> **Note:**
+> You _can_ also use this configuration to use the services externally with the pi as a server, but you should change the port of the `client` on the pi from 80 to 8080 first and also all `localhost` / `localhost:80` links to `localhost:8080` so you can use them properly.
