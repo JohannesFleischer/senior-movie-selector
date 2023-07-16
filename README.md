@@ -1,5 +1,12 @@
 # Senior Movie Selector
 
+<div class="background" style="width: 1000px; height: 250px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 10px;">
+	<img src=".images/client.png">
+	<img src=".images/db_client_1.png">
+	<img src=".images/db_client_2.png">
+	<img src=".images/db_client_3.png">
+</div>
+
 ## Start
 
 The [Production](#production) and [Development](#development) sections include informations to manually install the project. If you want to use a raspberry pi to host the project there is also a [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) role in this repository that you can use to install the project and setup a auto start. You can find more information [here](#information-about-hosting-on-a-pi)
