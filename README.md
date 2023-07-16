@@ -1,11 +1,8 @@
 # Senior Movie Selector
 
-<div class="background" style="width: 1000px; height: 250px; white-space: nowrap; overflow-x: scroll; border: 0; padding: 10px;">
-	<img src=".images/client.png">
-	<img src=".images/db_client_1.png">
-	<img src=".images/db_client_2.png">
-	<img src=".images/db_client_3.png">
-</div>
+|`client`|`db_client` list|`db_client` create|`db_client` create(2)|
+|------|-----------|-----------|-----------|
+|![](.images/client.png)|![](.images/db_client_1.png)|![](.images/db_client_2.png)|![](.images/db_client_3.png)
 
 ## Start
 
