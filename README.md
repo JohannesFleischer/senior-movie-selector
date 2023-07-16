@@ -1,8 +1,8 @@
 # Senior Movie Selector
 
-|`client`|`db_client` list|`db_client` create|`db_client` create(2)|
-|------|-----------|-----------|-----------|
-|![](.images/client.png)|![](.images/db_client_1.png)|![](.images/db_client_2.png)|![](.images/db_client_3.png)
+| `client` | `db_client` list | `db_client` update | `db_client` create | `db_client` create(2) |
+|----------|------------------|--------------------|--------------------|-----------------------|
+| ![The UI of the main client](.images/client.png) | ![The start page of the db_client which shows the current entries in the database](.images/db_client_1.png) | ![](.images/db_client_2.png) | ![](.images/db_client_3.png) | ![](.images/db_client_3.png) |
 
 ## Start
 
