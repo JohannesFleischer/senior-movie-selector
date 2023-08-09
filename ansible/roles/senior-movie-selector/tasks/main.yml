@@ -52,13 +52,13 @@
     dest: "{{ item.dest_file }}"
     mode: "0700"
   loop:
-    - { 
+    - {
       src_file: "senior-movie-selector.desktop.j2",
-      dest_file: "/home/{{ senior_movie_selector_project_owner }}/.config/autostart/senior-movie-selector.desktop" 
+      dest_file: "/home/{{ senior_movie_selector_project_owner }}/.config/autostart/senior-movie-selector.desktop"
       }
-    - { 
-      src_file: "senior-movie-selector.sh.j2", 
-      dest_file: "/home/{{ senior_movie_selector_project_owner }}/Desktop/senior-movie-selector.sh" 
+    - {
+      src_file: "senior-movie-selector.sh.j2",
+      dest_file: "/home/{{ senior_movie_selector_project_owner }}/Desktop/senior-movie-selector.sh"
       }
   when: senior_movie_selector_setup_autostart
 
@@ -70,9 +70,10 @@
   ansible.builtin.pip:
     name:
       - docker
-      - docker-compose 
+      - docker-compose
 
 - name: Start senior-movie-selector
   community.docker.docker_compose:
     project_src: "{{ senior_movie_selector_project_dir }}"
     state: present
+    pull: true
