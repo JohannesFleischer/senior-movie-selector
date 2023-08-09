@@ -2,6 +2,8 @@
 - name: Install senior-movie-selector on a pie
   hosts: pi
 
+  vars:
+    - ansible_user: "{{ host_username }}"
   vars_files:
     - vars/vars.yml
 
