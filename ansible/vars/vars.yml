@@ -4,10 +4,10 @@
 host_username: pi
 
 # The local ip of your pi. The default value is just an example
-host_ip_address: "192.168.178.63"
+host_ip_address: 192.168.178.54
 
-# The release version of the senior-movie-selector project you want to install 
-version: v1.0.1
+# The release version of the senior-movie-selector project you want to install
+version: v1.0.3
 
 # The directory you want the project to be stored in on your pi
 project_dir: "/home/{{ host_username }}/senior-movie-selector"
@@ -19,7 +19,6 @@ films_media_path: ""
 poster_media_path: ""
 
 # With this variable you can choose whether the autostart configuration should be applied.
-# When activated this role adds two files that try to pull and restart the project on startup and launch chromium in fullscreen with the Client opened 
-# Options: true/false 
+# When activated this role adds two files that try to pull and restart the project on startup and launch chromium in fullscreen with the Client opened
+# Options: true/false
 setup_autostart: true
-
