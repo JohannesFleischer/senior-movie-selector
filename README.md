@@ -1,16 +1,59 @@
-# Senior Movie Selector
+# Senior-Movie-Selector
 
 | `client` | `db_client` list | `db_client` update | `db_client` create | `db_client` create(2) |
 |----------|------------------|--------------------|--------------------|-----------------------|
 | ![The UI of the main client](.images/client.png) | ![The start page of the db_client which shows the current entries in the database](.images/db_client_1.png) | ![](.images/db_client_2.png) | ![](.images/db_client_3.png) | ![](.images/db_client_4.png) |
 
-## Start
+## Summary
 
-The [Production](#production) and [Development](#development) sections include informations to manually install the project. If you want to use a raspberry pi to host the project there is also a [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) role in this repository that you can use to install the project and setup a auto start. You can find more information [here](#information-about-hosting-on-a-pi)
+To run this project you'll need [docker compose](https://docs.docker.com/compose/), but You can skip the installation, if you use the Ansible role later on for an installation on a PI.
 
-### Production
+To use fully use this project you have to do these three steps:
 
-To run the latest official release download the `docker-compose.yml` and create a `films`, `mongo/db` and `poster` folder (or symlink for your media) in the same directory. So it should look kinda like this:
+1. Prepare the project directory
+2. Store your media files ([supported movie files](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support))
+3. [Create a database entry for every movie](#db-client)
+
+In the following section are multiple ways described how to start the project for different usecases.
+
+After the installation you can check out the [Additional](#additional) section for further useful information
+
+## Getting started
+
+> **NOTE:** This project can also be used with a remote control. You can find more information [here](#information-about-using-a-remote)
+
+### PI
+
+To run this project on a Raspberry Pi use the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3` or higher
+
+For the installation and the whole setup you can use the Ansible role in the `./ansible` directory.
+
+> **IMPORTANT:** Ansible runs on your pc, <u>not on your pi</u> and executes commands via an ssh connection. To use the role a [passwordless ssh connection](https://www.ssh.com/academy/ssh/copy-id) to the pi is necessary.
+
+Once that is ensured, you can follow the steps below for installation and setup.
+
+1. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) on your pc
+2. Download the repository to your pc
+3. Navigate to the `ansible` folder of the repository
+4. Install the requirements with:
+
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
+5. Customize the variables in the `vars/vars.yml` file to your liking
+6. Start the role with:
+
+```sh
+ansible-playbook install.yml
+```
+
+### Other Operating Systems
+> **Note:** If you want to use the application also after reboots you should restart it with `docker compose restart`
+
+#### Opt 1: Official images
+
+Create a `films`, `mongo/db` and `poster` folder or symlink in your project directory and place your [media files](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). So it should look kinda like this:
 
 ```txt
 senior-movie-selector/
@@ -26,80 +69,64 @@ senior-movie-selector/
 ├─ docker-compose.yml
 ```
 
-After that you can use the following command to pull and start the containers:
+Download the `docker-compose.yml` and use this command to pull and start the containers:
 
 ```sh
 docker compose up -d
 ```
 
----
+#### Opt 2: Build own images
 
-If you don't want to use the official images or if your platform ist not supported (yet) you can also download the whole project and then build and start the containers yourself with the following command:
+If you don't want to use the official images or if your platform is not supported (yet) you can also download the whole project, place your files in the `films` and `poster` directories (or replace the folders with symlinks) and then build and start the containers yourself with the following command:
 
 ```sh
 docker compose -f docker-compose-prod.yml up -d
 ```
----
-
-> **Important:**
->
-> - if you want to use the application after reboots you should restart it with `docker compose restart`
-> - If you want to run it on a raspi you can find more information [here](#information-about-hosting-on-a-pi)
-
-### Development
-
-To run the development version you can use the following command:
-
-```sh
-docker compose -f docker-compose-dev.yml up -d
-```
-
-> **Note:** if you want to edit a react service i recommend to start this service first (e.g. with `nodemon`) and then launch the other services with `docker compose` so you don't have to rebuild all services every time
 
 ## Services
 
-### for users
+The application consists of 5 docker containers but only the [client](#client) and the [db-client](#db-client) have to be accessed manually in the browser.
 
-- [db-client](http://localhost:8000) to insert or edit Movies in the DB
-- [client](http://localhost) to select and watch movies
+### [db-client](http://localhost:8000)
 
-### for nerds
+> **NOTE:** You can find information to edit the database externally [here](#information-about-updating-the-database-externally)
 
-- [db-server](http://localhost:3000) with the db-api for the actual `mongo-db`
-- [fileserver](http://localhost:1337) that serves as a file server for the other services and hosts the videoplayer.
-- [mongo](http://localhost:27017) actual db that stores the data in the `mongo` folder
+This service runs on `localhost:8000` and can be used to insert or edit Movies in the DB after you placed the files of the movie in the `films` and `posters` folders.
 
-## Usage
+Options:
 
-### Client
+- list movies
+- create movie
+- edit movie
+- delete movie
 
-The main application is the `client`.
-The Client selects `movie_count` files that are displayed on the Screen.
+### [client](http://localhost)
+
+This is the main application and runs on `localhost`. After creating your database entries you can use this application to select and watch your movies.
+
 Supported actions are:
 
-- `Hover` over a movie -> shows description
-- `Click` on a movie -> starts the videoplayer with the filename from the db
-- `Escape`/`Backspace`/ `ArrowUp` -> reload
+- `ArrowUP`/`Escape`/`Backspace` -> create new random selection (reload)
 - `ArrowRight`/ `ArrowLeft` -> select movies
-- `Enter` -> start selected movie
+- `Enter` -> start the selected movie
+- `Hover` over a movie -> show information
+- `Click` on a movie -> start the clicked movie
 
-### Fileserver
+### [fileserver](http://localhost:1337)
 
-The second user application is the `fileserver`.
-In general this address has not to be opened manually. If you want to do so see [Services](#services).
-The file server hosts all film and poster files but also fonts and the static videoplayer file:
+This server runs on `localhost:1337` and is hosts static files for the other services like some CSS files, movies, posters and the HTML file that contains the `videoplayer`
 
 #### Videoplayer
 
-The videoplayer (main.html) takes an filename as a url parameter and tries to open that file.
-When clicking on a film in the `client` you get redirected to the videoplayer. The player then tries to open the videofile with the name from the db.
+The `videoplayer` (main.html) takes a filename as a URL parameter and tries to open that file.
+When clicking on a film in the `client` you get redirected to the `videoplayer`. The player then tries to open the `videofile` with the name from the db.
 If the file is not found or if an error occurs you get redirected back to the `client`.
-If the videofile is found the videoplayer tries to start it automatically in \"fullscreen\" (technically just laaarge)
+If the video file is found the `videoplayer` tries to start it automatically in \"full screen\" (technically just laaarge)
 
 > **Notes:**
 >
-> - to start the video automatically in Firefox this has to be allowed manually at least once
-> - Supported filetypes are [depending on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
+> - To start the video automatically in Firefox this has to be allowed manually at least once
+> - Supported file types [depend on your browser](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support). Mp4 should work on all common browsers.
 
 Supported actions are:
 
@@ -107,46 +134,24 @@ Supported actions are:
 - `Backspace` -> return to `client`
 - `ArrowRight`/`ArrowLeft` -> ±15 seconds (can be hold for longer periods)
 
-## Dependencies
+### [db-server](http://localhost:3000)
 
-see [here](DEPENDENCIES.md)
+This server runs on `localhost:3000` and hosts the `db-api` to make actions to the `mongo-db`
+
+### [mongo](http://localhost:27017)
+
+This database container runs on `localhost:27017` and is the actual database for the project that stores the data in the `mongo/db` folder
 
 ## Additional
 
-### Information about hosting on a pi
-
-To run on a raspberry pi use the [64-bit version](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) on `raspi 3` or higher
-
-For the installation and the setup of the autostart you can use Ansible role in `./ansible/`
-
-> **IMPORTANT:** Ansible run on your pc, <u>not on your pi</u> and executes commands via a ssh connection. To use the role a [passwordless ssh connection](https://www.ssh.com/academy/ssh/copy-id) to the pi is necessary.
-
-Once that is ensured, you can follow the steps below for installation and setup.
-
-1. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) on your pc
-2. Download the repository on your pc
-3. Navigate to the `ansible` folder of the repository
-4. Install the requirements with:
-
-```sh
-ansible-galaxy install -r requirements.yml
-```
-
-5. Customize the variables in the `vars/vars.yml` file to your liking
-6. Start the role with:
-
-```sh
-ansible-playbook install.yml
-```
-
-### Information about remote easyfications
+### Information about using a remote
 
  Through the supported key-events a remote like [this one](https://www.amazon.de/Andoer%C2%AE-Magische-Drahtlose-Fernbedienung-PC-Projektor-Type-1/dp/B015SO37SY) can be used.
-To make it even easier to use you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all Buttons you don't need. **But beware: this settings are system-wide**
+To make it even easier to use you can [disable](https://superuser.com/questions/775785/how-to-disable-a-keyboard-key-in-linux-ubuntu) all buttons you don't need. **But beware: these settings are systemwide**
 
 ### Information about updating the database externally
 
-The project itself runs completely locally, but if the target computer is connected to the internet, it is also possible to update the database or check the services from another computer using ssh port forwarding. On Linux this can be done with this entry in your `~/.ssh/config`
+The project itself runs completely locally, but if the target computer is connected to a network, it is also possible to update the database or check the services from another computer that is in the same network, using ssh port forwarding. On Linux this can be done with this entry in your `~/.ssh/config`
 
 ```sh
 Host pi-sms-fwd
@@ -159,10 +164,27 @@ Host pi-sms-fwd
 	LocalForward 1337 127.0.0.1:1337
 ```
 
-and the corresponding command `ssh pi-sms-fwd`.
-After that the all services on the pi can be accessed with the normal localhost urls. The only exception is the `client`, with can be accessed via  `localhost:8080` because port 80 cant be used for forwarding.
+and the corresponding command:
 
-The whole thing also works over a VPN connection.
+```sh
+ssh pi-sms-fwd`
+```
+
+After that all services from the pi except the client can be accessed with the normal localhost URLs. The `client` can only be accessed via `localhost:8080` because port `80` can't be used for forwarding.
 
 > **Note:**
-> You _can_ also use this configuration to use the services externally with the pi as a server, but you should change the port of the `client` on the pi from 80 to 8080 first and also all `localhost` / `localhost:80` links to `localhost:8080` so you can use them properly.
+> You _can_ also use this configuration to use the services externally with the pi as a server, but you should change the port of the `client` on the pi from 80 to 8080 first and also all `localhost` / `localhost:80` links in the code to `localhost:8080` and [build your own images](#opt-2-build-own-images), so you can use them properly. But **I do not recommend** you to make the service accessible through the internet, because it is not build nor tested for that use case.
+
+## Contribute
+
+To run the development version you can use the following command:
+
+```sh
+docker compose -f docker-compose-dev.yml up -d
+```
+
+If you want to edit a React service I recommend you to start this service first (e.g. with `nodemon`) and then launch the other services with `docker compose` so you don't have to rebuild all services every time
+
+## Dependencies
+
+see [here](DEPENDENCIES.md)
