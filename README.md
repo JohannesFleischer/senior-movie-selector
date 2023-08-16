@@ -6,9 +6,9 @@
 
 ## Summary
 
-To run this project you'll need [docker compose](https://docs.docker.com/compose/), but You can skip the installation, if you use the Ansible role later on for an installation on a PI.
+To run this project you'll need [docker compose](https://docs.docker.com/compose/), but you can skip the installation, if you use the Ansible role later on for an installation on a PI.
 
-To use fully use this project you have to do these three steps:
+To fully use this project you have to do these three steps:
 
 1. Prepare the project directory
 2. Store your media files ([supported movie files](https://videojs.com/guides/faqs/#q-what-media-formats-does-videojs-support))
